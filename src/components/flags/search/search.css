@@ -1,0 +1,7 @@
+.search {
+  margin-right: var(--ui-kit-space-1);
+}
+
+.clearIcon {
+  cursor: pointer;
+}

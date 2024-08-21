@@ -1,0 +1,7 @@
+.flags {
+  display: flex;
+  gap: var(--ui-kit-space-1);
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}

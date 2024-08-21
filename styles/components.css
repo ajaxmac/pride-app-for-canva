@@ -36,3 +36,11 @@
 .scrollContainer:focus-within::-webkit-scrollbar-thumb {
   visibility: visible;
 }
+
+.description {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--ui-kit-space-1);
+  margin-bottom: var(--ui-kit-space-2);
+}

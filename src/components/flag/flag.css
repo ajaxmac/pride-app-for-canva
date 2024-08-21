@@ -1,0 +1,35 @@
+.flag {
+  width: calc(50% - var(--ui-kit-space-1) / 2);
+  position: relative;
+  display: grid;
+  grid-template-rows: 93px 1fr;
+  box-sizing: border-box;
+}
+
+.flagContainer {
+  border: 1px solid #909090;
+}
+
+.details {
+  display: flex;
+  gap: var(--ui-kit-space-1);
+  justify-content: space-between;
+  background-color: var(--ui-kit-color-background-primary);
+  box-shadow: var(--ui-kit-shadow);
+}
+
+.details p {
+  display: inline-block;
+}
+
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
