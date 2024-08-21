@@ -14,7 +14,6 @@ const Search = (props: Props) => {
   const [search, setSearch] = useState<string>("");
 
   const clearSearch = () => {
-    console.log("Clear search");
     setSearch("");
     doSearch('');
   };

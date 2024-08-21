@@ -7,10 +7,11 @@ import styles from "./flag.css";
 
 type Props = {
   flag: FlagType;
+  variant: "default" | "small";
 };
 
 const Flag = (props: Props) => {
-  const { flag } = props;
+  const { flag, variant } = props;
   const { name, slug, thumbnailUrl, yearCreated } = flag;
   const [isLoading, setIsLoading] = useState(false);
 
@@ -80,8 +81,12 @@ const Flag = (props: Props) => {
     setIsLoading(false);
   };
 
-  return (
-    <div key={slug} className={styles.flag}>
+  return variant === "small" ? (
+    <div className={styles.flagSmall}>
+      <ImageCard thumbnailUrl={thumbnailUrl} alt={name} />
+    </div>
+  ) : (
+    <div className={styles.flag}>
       <div className={styles.flagContainer}>
         <ImageCard
           thumbnailUrl={thumbnailUrl}
@@ -99,6 +104,10 @@ const Flag = (props: Props) => {
       </div>
     </div>
   );
+};
+
+Flag.defaultProps = {
+  variant: "default",
 };
 
 export default Flag;

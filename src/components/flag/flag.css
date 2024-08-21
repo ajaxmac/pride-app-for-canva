@@ -1,9 +1,20 @@
 .flag {
-  width: calc(50% - var(--ui-kit-space-1) / 2);
+  width: 100%;
   position: relative;
   display: grid;
   grid-template-rows: 93px 1fr;
   box-sizing: border-box;
+}
+
+.flagSmall {
+  width: 25%;
+  border: 1px solid #909090;
+  transition: all 0.3s ease-in-out; 
+}
+
+
+.flagSmall:hover {
+  width: 35%
 }
 
 .flagContainer {
@@ -20,16 +31,4 @@
 
 .details p {
   display: inline-block;
-}
-
-.loading {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

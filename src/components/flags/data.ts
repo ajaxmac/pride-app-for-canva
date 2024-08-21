@@ -41,7 +41,7 @@ export const FLAGS: FlagType[] = [
     name: 'Asexual',
     slug: 'asexual-pride-flag',
     mimeType: "image/svg+xml",
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Asexual_Pride_Flag.svg/1024px-Asexual_Pride_Flag.svg.png",
+    url: "https://upload.wikimedia.org/wikipedia/commons/9/9e/Asexual_Pride_Flag.svg",
     thumbnailUrl:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Asexual_Pride_Flag.svg/320px-Asexual_Pride_Flag.svg.png",
     yearCreated: "2010"

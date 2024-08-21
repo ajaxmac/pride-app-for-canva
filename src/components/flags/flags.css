@@ -5,3 +5,18 @@
   justify-content: flex-start;
   align-items: center;
 }
+
+.closed {
+  cursor: pointer;
+}
+
+.miniFlags {
+  display: flex;
+  gap: var(--ui-kit-space-1);
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  height: 6rem;
+}
