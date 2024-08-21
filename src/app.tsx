@@ -1,5 +1,6 @@
 import { InfoIcon, Text, Spacer } from "@canva/app-ui-kit";
 import AddFlag from "./components/flags";
+import "styles/variables.css";
 import styles from "styles/components.css";
 
 export const App = () => {

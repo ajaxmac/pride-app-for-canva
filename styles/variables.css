@@ -1,0 +1,11 @@
+body {
+  --pride-app-pink: #ff218c;
+}
+
+
+body div:active,
+body div:hover,
+body div:focus {
+  color: var(--pride-app-pink);
+  outline: none;
+} 

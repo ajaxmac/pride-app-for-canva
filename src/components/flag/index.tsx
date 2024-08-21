@@ -12,9 +12,12 @@ type Props = {
 
 const Flag = (props: Props) => {
   const { flag, variant } = props;
-  const { name, slug, thumbnailUrl, yearCreated } = flag;
+  const { name, thumbnailUrl, yearCreated } = flag;
   const [isLoading, setIsLoading] = useState(false);
 
+  /**
+   * upload flag
+   */
   const upLoadFlag = async (flag: FlagType) => {
     const { url, thumbnailUrl, mimeType } = flag;
 
@@ -60,14 +63,9 @@ const Flag = (props: Props) => {
     await ui.startDrag(event, {
       type: "IMAGE",
       resolveImageRef: () => {
-        return upload({
-          type: "IMAGE",
-          mimeType,
-          url,
-          thumbnailUrl,
-        });
+        return upLoadFlag(flag);
       },
-      previewUrl: url,
+      previewUrl: thumbnailUrl,
       previewSize: {
         width: 320,
         height: 212,

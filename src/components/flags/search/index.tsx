@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { useState } from "react";
 import { TextInput, ClearIcon } from "@canva/app-ui-kit";
+import ClearSearch from "../search/clearSearch";
 import type { FlagType } from "../../../types";
 import styles from "./search.css";
 
@@ -13,22 +14,18 @@ const Search = (props: Props) => {
   const { doSearch } = props;
   const [search, setSearch] = useState<string>("");
 
+
+  /**
+   * Clear search
+   */
   const clearSearch = () => {
     setSearch("");
     doSearch('');
   };
 
-  const clearSearchIcon = () => {
-    return (
-      <div
-        className={styles.clearIcon}
-        onClick={clearSearch}
-        aria-label="Clear search"
-      >
-        <ClearIcon />
-      </div>
-    );
-  };
+  /**
+   * Handle Search
+   */
   const handleSearch = (value: string) => {
     setSearch(value);
     console.log(value);
@@ -40,7 +37,7 @@ const Search = (props: Props) => {
       <TextInput
         placeholder="Search Flags"
         type="search"
-        end={clearSearchIcon}
+        end={<ClearSearch clearSearch={clearSearch}/>}
         onChange={handleSearch}
         value={search}
       />

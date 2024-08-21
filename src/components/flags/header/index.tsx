@@ -1,15 +1,16 @@
 /* eslint-disable no-console */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   ChevronDownIcon,
   ChevronRightIcon,
-  SearchIcon,
   Title,
 } from "@canva/app-ui-kit";
 import Filter from "../filter";
 import Search from "../search";
+import ToggleSearch from "../search/toggle";
 import type { FlagType } from "../../../types";
+import useKeyPress from "../../../hooks/useKeyPress";
 import styles from "./header.css";
 
 type Props = {
@@ -24,6 +25,14 @@ type Props = {
 const FlagsHeader = (props: Props) => {
   const { open, toggle, variant } = props;
   const [isSearching, setIsSearch] = useState<boolean>(false);
+  const [focus, setFocus] = useState<boolean>(false);
+  const enterPressed = useKeyPress("Enter");
+
+  useEffect(() => {
+    if (enterPressed && focus) {
+      toggle();
+    }
+  }, [enterPressed, focus]);
 
   const toggleSearch = () => {
     setIsSearch(!isSearching);
@@ -34,6 +43,8 @@ const FlagsHeader = (props: Props) => {
       <div
         className={styles.title}
         onClick={toggle}
+        onFocus={() => setFocus(true)}
+        onBlur={() => setFocus(false)}
         aria-label="Toggle flags"
         tabIndex={0}
       >
@@ -59,14 +70,7 @@ const FlagsHeader = (props: Props) => {
           {toggleSwitch()}
           <div className={styles.headerButtons}>
             <Filter {...props} />
-            <div
-              className={styles.searchIcon}
-              onClick={toggleSearch}
-              aria-label="Toggle search"
-              tabIndex={0}
-            >
-              <SearchIcon />
-            </div>
+            <ToggleSearch toggleSearch={toggleSearch} />
           </div>
         </>
       )}

@@ -4,4 +4,24 @@
 
 .clearIcon {
   cursor: pointer;
+
+}
+
+.clearIcon:active,
+.clearIcon:hover,
+.clearIcon:focus {
+  color: var(--pride-app-pink);
+  outline: none;
+}
+
+.searchIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.searchIcon:hover {
+  opacity: .75;
 }
