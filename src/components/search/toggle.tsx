@@ -1,36 +1,35 @@
-/* eslint-disable no-console */
+import { SearchIcon } from "@canva/app-ui-kit";
 import { useEffect, useState } from "react";
-import { ClearIcon } from "@canva/app-ui-kit";
-import useKeyPress from "../../../hooks/useKeyPress";
+import useKeyPress from "../../hooks/useKeyPress";
 import styles from "./search.css";
 
 type Props = {
-  clearSearch: () => void;
+  toggleSearch: () => void;
 };
 
-const ClearSearch = (props: Props) => {
-  const { clearSearch } = props;
+const ToggleSearch = (props: Props) => {
+  const { toggleSearch } = props;
   const [focus, setFocus] = useState<boolean>(false);
   const enterPressed = useKeyPress("Enter");
 
   useEffect(() => {
     if (enterPressed && focus) {
-      clearSearch();
+      toggleSearch();
     }
   }, [enterPressed, focus]);
 
   return (
     <div
-      className={styles.clearIcon}
-      onClick={clearSearch}
+      className={styles.searchIcon}
+      onClick={toggleSearch}
       onFocus={() => setFocus(true)}
       onBlur={() => setFocus(false)}
-      aria-label="Clear search"
+      aria-label="Toggle search"
       tabIndex={0}
     >
-      <ClearIcon />
+      <SearchIcon />
     </div>
   );
 };
 
-export default ClearSearch;
+export default ToggleSearch;

@@ -3,9 +3,9 @@ body {
 }
 
 
-body div:active,
+/* body div:active,
 body div:hover,
 body div:focus {
   color: var(--pride-app-pink);
   outline: none;
-} 
+}  */

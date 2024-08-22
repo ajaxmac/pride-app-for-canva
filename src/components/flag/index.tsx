@@ -11,9 +11,10 @@ type Props = {
 };
 
 const Flag = (props: Props) => {
-  const { flag, variant } = props;
+  const { flag, variant = "default" } = props;
   const { name, thumbnailUrl, yearCreated } = flag;
   const [isLoading, setIsLoading] = useState(false);
+  const type = "IMAGE";
 
   /**
    * upload flag
@@ -22,7 +23,7 @@ const Flag = (props: Props) => {
     const { url, thumbnailUrl, mimeType } = flag;
 
     return upload({
-      type: "IMAGE",
+      type,
       mimeType,
       url,
       thumbnailUrl,
@@ -57,11 +58,11 @@ const Flag = (props: Props) => {
     event: React.DragEvent<HTMLElement>,
     flag: FlagType
   ) => {
-    const { url, thumbnailUrl, mimeType } = flag;
+    const { thumbnailUrl } = flag;
     setIsLoading(true);
 
     await ui.startDrag(event, {
-      type: "IMAGE",
+      type,
       resolveImageRef: () => {
         return upLoadFlag(flag);
       },
@@ -102,10 +103,6 @@ const Flag = (props: Props) => {
       </div>
     </div>
   );
-};
-
-Flag.defaultProps = {
-  variant: "default",
 };
 
 export default Flag;

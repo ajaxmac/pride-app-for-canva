@@ -1,16 +1,10 @@
-import { InfoIcon, Text, Spacer } from "@canva/app-ui-kit";
-import AddFlag from "./components/flags";
-import "styles/variables.css";
-import styles from "styles/components.css";
+import Main from "./components/main/main";
+import PrideProvider from "./context/prideContext";
 
 export const App = () => {
   return (
-    <div className={styles.scrollContainer}>
-      <div className={styles.description}>
-        <InfoIcon />
-        <Text>All your pride and LGBTIQ+ design resources in one place</Text>
-      </div>
-      <AddFlag />
-    </div>
+    <PrideProvider>
+      <Main />
+    </PrideProvider>
   );
 };

@@ -1,4 +1,7 @@
-import type { FlagType } from '../../types';
+import type { FlagType, SectionType } from '../types';
+
+export const SECTION_FLAG: SectionType = 'flags';
+export const SECTION_GIF: SectionType = 'gifs';
 
 export const FLAGS: FlagType[] = [
   {
