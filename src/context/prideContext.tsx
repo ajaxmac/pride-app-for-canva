@@ -1,27 +1,20 @@
 /* eslint-disable no-console */
 import React, { createContext, useReducer } from "react";
 import { prideReducer } from "./prideReducer";
-import type { PrideContextType } from "../types";
+import type { ActionType, PrideContextType } from "../types";
+import { LGBT } from "../data";
 
 export const defaultPrideContext: PrideContextType = {
   flags: [],
-  search: "",
+  searchFlagsTerm: "",
+  searchGifsTerm: LGBT,
   searchResults: [],
-  visibleSearchResults: false,
-  visibleSections: ["flags"],
-  gifs: {
-    data: [],
-    pagination: { total_count: 0, count: 0, offset: 0 },
-    meta: {
-      msg: "",
-      response_id: "",
-      status: 0,
-    },
-  },
+  visibleSections: [],
+  gifs: [],
 };
 
 const defaultDispatchContext = {
-  dispatch: (args: unknown) => {
+  dispatch: (args: ActionType) => {
     console.warn(args);
   },
 };

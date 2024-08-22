@@ -37,18 +37,20 @@ const MiniFlags = (props: Props) => {
   }, [enterPressed, focus]);
 
   return (
-    <div
-      className={styles.miniFlags}
-      onFocus={() => setFocus(true)}
-      onBlur={() => setFocus(false)}
-      aria-label={`Toggle ${title}`}
-      tabIndex={0}
-      onClick={toggle}
-    >
-      {flags.slice(0, 5).map((flag) => (
-        <Flag key={flag.slug} flag={flag} variant="small" />
-      ))}
-      <MoreHorizontalIcon />
+    <div className={styles.closed}>
+      <div
+        className={styles.miniFlags}
+        onFocus={() => setFocus(true)}
+        onBlur={() => setFocus(false)}
+        aria-label={`Toggle ${title}`}
+        tabIndex={0}
+        onClick={toggle}
+      >
+        {flags && flags.slice(0, 5).map((flag) => (
+          <Flag key={flag.slug} flag={flag} variant="small" />
+        ))}
+        <MoreHorizontalIcon />
+      </div>
     </div>
   );
 };

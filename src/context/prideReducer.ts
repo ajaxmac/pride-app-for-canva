@@ -1,20 +1,23 @@
-import type { GifsResult } from "@giphy/js-fetch-api";
+/* eslint-disable no-console */
 import type {
   ActionType,
   FlagType,
   PrideContextType,
   SectionType,
+  GifType
 } from "../types";
-import { FLAGS, SECTION_FLAG } from "../data";
+import { FLAGS, SECTION_FLAG, SECTION_GIF } from "../data";
 import {
   INIT_PRIDE,
   SEARCH_FLAGS,
   SET_SEARCH_RESULTS,
-  SET_VISIBLE_SEARCH_RESULTS,
   SET_VISIBLE_SECTIONS,
   SET_GIFS,
   SORT_FLAGS,
   TOGGLE_FLAG_SECTION,
+  TOGGLE_GIF_SECTION,
+  SEARCH_GIFS,
+  SEARCH_GIFS_RESULT
 } from "./actions";
 
 export function prideReducer(
@@ -27,7 +30,7 @@ export function prideReducer(
     case INIT_PRIDE:
       return {
         ...prideContext,
-        flags: [...FLAGS],
+        flags: [...FLAGS]
       };
     case SEARCH_FLAGS: {
       const search = action.payload as string;
@@ -36,21 +39,22 @@ export function prideReducer(
       );
       return {
         ...prideContext,
-        search,
+        searchFlagsTerm: search,
         flags: searchResults,
       };
     }
-
+    case SEARCH_GIFS: {
+      return {
+        ...prideContext,
+        searchGifsTerm: action.payload as string,
+      };
+    }
     case SET_SEARCH_RESULTS:
       return {
         ...prideContext,
         searchResults: action.payload as FlagType[],
       };
-    case SET_VISIBLE_SEARCH_RESULTS:
-      return {
-        ...prideContext,
-        visibleSearchResults: action.payload as boolean,
-      };
+
     case SET_VISIBLE_SECTIONS:
       return {
         ...prideContext,
@@ -59,8 +63,15 @@ export function prideReducer(
     case SET_GIFS:
       return {
         ...prideContext,
-        gifs: action.payload as GifsResult,
+        searchGifsTerm: action.payload as string,
       };
+
+    case SEARCH_GIFS_RESULT:
+      return {
+        ...prideContext,
+        gifs: action.payload as GifType[]
+      };
+
     case SORT_FLAGS: {
       const value = action.payload as string;
       let newFlags = [...flags];
@@ -93,18 +104,48 @@ export function prideReducer(
         ...prideContext,
         flags: newFlags,
       };
-    }  
-
+    }
 
     case TOGGLE_FLAG_SECTION: {
       let newSections: SectionType[] = [];
 
-      if (visibleSections.includes("flags")) {
+      if (!visibleSections) {
+        return {
+          ...prideContext,
+          visibleSections: [SECTION_FLAG],
+        };
+      }
+
+      if (visibleSections.includes(SECTION_FLAG)) {
         newSections = visibleSections.filter(
           (section) => section !== SECTION_FLAG
         );
       } else {
         newSections = [...visibleSections, SECTION_FLAG];
+      }
+
+      return {
+        ...prideContext,
+        visibleSections: newSections,
+      };
+    }
+
+    case TOGGLE_GIF_SECTION: {
+      let newSections: SectionType[] = [];
+
+      if (!visibleSections) {
+        return {
+          ...prideContext,
+          visibleSections: [SECTION_FLAG],
+        };
+      }
+
+      if (visibleSections.includes(SECTION_GIF)) {
+        newSections = visibleSections.filter(
+          (section) => section !== SECTION_GIF
+        );
+      } else {
+        newSections = [...visibleSections, SECTION_GIF];
       }
 
       return {

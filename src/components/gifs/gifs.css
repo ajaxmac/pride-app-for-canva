@@ -10,13 +10,16 @@
   cursor: pointer;
 }
 
-.miniFlags {
-  display: flex;
-  gap: var(--ui-kit-space-1);
-  flex-wrap: nowrap;
-  justify-content: flex-start;
+.toggleGifs {
+  cursor: pointer;
+}
+
+.giphyLogo {
+  display: grid;
+  grid-template-columns: 90% 1fr;
   align-items: center;
-  width: 100%;
-  position: relative;
-  height: 6rem;
+  justify-content: flex-end;
+  object-fit: contain;
+  height: var(--ui-kit-space-4);
+  margin-top: var(--ui-kit-space-2);
 }

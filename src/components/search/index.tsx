@@ -1,11 +1,11 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TextInput } from "@canva/app-ui-kit";
 import ClearSearch from "../search/clearSearch";
-import { useContext } from "react";
 import { PrideContext, PrideDispatchContext } from "../../context/prideContext";
 import type { SectionType } from "../../types";
 import { SECTION_FLAG, SECTION_GIF } from "../../data";
-import { SEARCH_FLAGS, SEARCH_GIFS } from "../../context/actions";
+import { SEARCH_FLAGS, SEARCH_GIFS, SEARCH_GIFS_RESULT } from "../../context/actions";
+import { fetchGifs } from "../../lib";
 import styles from "./search.css";
 
 type Props = {
@@ -14,20 +14,26 @@ type Props = {
 
 const Search = (props: Props) => {
   const { type } = props;
-  const { search } = useContext(PrideContext);
+  const { searchFlagsTerm, searchGifsTerm } = useContext(PrideContext);
   const { dispatch } = useContext(PrideDispatchContext);
+  const [search, setSearch] = useState<string>(
+    type === SECTION_FLAG ? searchFlagsTerm : searchGifsTerm
+  );
 
+  useEffect(() => {
+    setSearch(type === SECTION_FLAG ? searchFlagsTerm : searchGifsTerm);
+  }, [searchFlagsTerm, searchGifsTerm]);
 
   /**
    * Clear search
    */
   const clearSearch = () => {
-    switch(type) {
+    switch (type) {
       case SECTION_FLAG:
-        dispatch({ type: SEARCH_FLAGS, payload: '' });
+        dispatch({ type: SEARCH_FLAGS, payload: "" });
         break;
       case SECTION_GIF:
-        dispatch({ type: SEARCH_GIFS, payload: '' });
+        dispatch({ type: SEARCH_GIFS, payload: "" });
         break;
       default:
         break;
@@ -37,14 +43,18 @@ const Search = (props: Props) => {
   /**
    * Handle Search
    */
-  const handleSearch = (value: string) => {
-    switch(type) {
+  const handleSearch = async (value: string) => {
+    switch (type) {
       case SECTION_FLAG:
         dispatch({ type: SEARCH_FLAGS, payload: value });
         break;
-      case SECTION_GIF:
+      case SECTION_GIF: {
         dispatch({ type: SEARCH_GIFS, payload: value });
+        const gifs = await fetchGifs(value);
+
+        dispatch({ type: SEARCH_GIFS_RESULT, payload: gifs });
         break;
+      }
       default:
         break;
     }
@@ -55,7 +65,7 @@ const Search = (props: Props) => {
       <TextInput
         placeholder="Search Flags"
         type="search"
-        end={<ClearSearch clearSearch={clearSearch}/>}
+        end={<ClearSearch clearSearch={clearSearch} />}
         onChange={handleSearch}
         value={search}
       />

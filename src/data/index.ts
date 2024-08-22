@@ -1,7 +1,8 @@
 import type { FlagType, SectionType } from '../types';
-
+export const GIPHY_KEY = '8buVHJ7jFvJfd5qNRsgpt6xXq4o3LPZQ';
 export const SECTION_FLAG: SectionType = 'flags';
 export const SECTION_GIF: SectionType = 'gifs';
+export const LGBT = 'LGBT';
 
 export const FLAGS: FlagType[] = [
   {

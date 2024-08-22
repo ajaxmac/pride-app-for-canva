@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { Alert, Grid, Rows } from "@canva/app-ui-kit";
 import { SECTION_FLAG } from "../../data";
 import { PrideContext } from "../../context/prideContext";
@@ -9,31 +9,35 @@ import styles from "./flags.css";
 
 const AddFlag = () => {
   const { flags, visibleSections } = useContext(PrideContext);
+  const [variant, setVariant] = useState<"default" | "small">("default");
   const title = "Pride Flags";
+
+  useEffect(() => {
+    if (visibleSections && visibleSections.includes(SECTION_FLAG)) {
+      setVariant("default");
+    } else {
+      setVariant("small");
+    }
+  }, [visibleSections]);
 
   return (
     <div className={styles.container}>
       <Rows spacing="2u">
-        {visibleSections.includes(SECTION_FLAG) ? (
-          <>
-            <Header title={title} type={SECTION_FLAG} variant="default" />
-            <div className={styles.flags}>
-              {flags.length === 0 ? (
-                <Alert tone="info">No flags found</Alert>
-              ) : (
-                <Grid columns={2} spacing="1u">
-                  {flags.map((flag) => (
-                    <Flag key={flag.slug} flag={flag} variant="default" />
-                  ))}
-                </Grid>
-              )}
-            </div>
-          </>
-        ) : (
-          <div className={styles.closed}>
-            <Header title="Pride Flags" type={SECTION_FLAG} variant="small" />
-            <MiniFlags title={title} type={SECTION_FLAG} />
+        <Header title={title} type={SECTION_FLAG} variant={variant} />
+        {visibleSections && visibleSections.includes(SECTION_FLAG) ? (
+          <div className={styles.flags}>
+            {!flags || flags.length === 0 ? (
+              <Alert tone="info">No flags found</Alert>
+            ) : (
+              <Grid columns={2} spacing="1u">
+                {flags.map((flag) => (
+                  <Flag key={flag.slug} flag={flag} variant="default" />
+                ))}
+              </Grid>
+            )}
           </div>
+        ) : (
+          <MiniFlags title={title} type={SECTION_FLAG} />
         )}
       </Rows>
     </div>
