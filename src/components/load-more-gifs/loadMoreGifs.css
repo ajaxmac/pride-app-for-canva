@@ -1,0 +1,5 @@
+.loadMoreGifs {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--ui-kit-space-2);
+}

@@ -1,22 +1,45 @@
 /* eslint-disable no-console */
-import { GiphyFetch } from "@giphy/js-fetch-api";
-import { GIPHY_KEY } from "../data";
+import dayjs from "dayjs";
+import { FETCH_OPTIONS, LGBT, TENOR_API_KEY, TENOR_SEARCH_API } from "../data";
+import type { TenorGifType } from "../types";
 
-export const fetchGifs = async (search: string) => {
-  const gf = new GiphyFetch(GIPHY_KEY);
-  const results = await gf.search(search, { limit: 10 });
-  console.warn('Giphy search results', results);
-  
-  const gifs = results.data.map((gif) => {
+export const fetchGifs = async (search = '', nextGif ='') => {
+  const q = search === '' ? LGBT : `${search} ${LGBT}`;
+  const random = search === '' ? true : false;
+  const params = new URLSearchParams();
+  params.append("key", TENOR_API_KEY);
+  params.append("q", q);
+  params.append("random", random.toString());
+  params.append("locale", window.navigator.language);
+  params.append("contentfilter", "low"); // G, PG, and PG-13
+  params.append("media_filter", "gif,tinygif"); // minimal, basic, standard
+  params.append("limit", "20");
+
+  if (nextGif) {
+    params.append("pos", nextGif);
+  }
+
+  const url = `${TENOR_SEARCH_API}${params}`;
+
+  const { next, results } = await fetch(url, FETCH_OPTIONS)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      return data;
+    });
+
+  const gifs = results.map((gif: TenorGifType) => {
+    const { title, created, content_description, url, tags, media_formats } = gif;
     return {
-      name: gif.title,
-      yearCreated: gif.import_datetime,
-      slug: gif.slug,
+      name: title,
+      yearCreated: dayjs.unix(created).format("YYYY"),
+      description: content_description,
       mimeType: gif.type,
-      url: gif.url,
-      thumbnailUrl: gif.images.fixed_height.url,
+      url,
+      tags,
+      thumbnailUrl: media_formats.tinygif?.url
     };
   });
-  console.log(gifs);
-  return gifs;
+
+  return { gifs, next };
 };

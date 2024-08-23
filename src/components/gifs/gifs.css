@@ -15,11 +15,13 @@
 }
 
 .giphyLogo {
-  display: grid;
-  grid-template-columns: 90% 1fr;
+  display: flex;
   align-items: center;
   justify-content: flex-end;
-  object-fit: contain;
-  height: var(--ui-kit-space-4);
+  height: var(--ui-kit-space-2);
   margin-top: var(--ui-kit-space-2);
+}
+
+.giphyLogo svg {
+  height: 100%;
 }

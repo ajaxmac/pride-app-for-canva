@@ -4,7 +4,7 @@ import type {
   FlagType,
   PrideContextType,
   SectionType,
-  GifType
+  GifType,
 } from "../types";
 import { FLAGS, SECTION_FLAG, SECTION_GIF } from "../data";
 import {
@@ -17,7 +17,8 @@ import {
   TOGGLE_FLAG_SECTION,
   TOGGLE_GIF_SECTION,
   SEARCH_GIFS,
-  SEARCH_GIFS_RESULT
+  SEARCH_GIFS_RESULT,
+  SEARCH_GIFS_LOADING,
 } from "./actions";
 
 export function prideReducer(
@@ -30,7 +31,7 @@ export function prideReducer(
     case INIT_PRIDE:
       return {
         ...prideContext,
-        flags: [...FLAGS]
+        flags: [...FLAGS],
       };
     case SEARCH_FLAGS: {
       const search = action.payload as string;
@@ -44,9 +45,10 @@ export function prideReducer(
       };
     }
     case SEARCH_GIFS: {
+      const term = action.payload as string;
       return {
         ...prideContext,
-        searchGifsTerm: action.payload as string,
+        searchGifsTerm: term,
       };
     }
     case SET_SEARCH_RESULTS:
@@ -65,13 +67,28 @@ export function prideReducer(
         ...prideContext,
         searchGifsTerm: action.payload as string,
       };
-
-    case SEARCH_GIFS_RESULT:
+    case SEARCH_GIFS_LOADING: {
+      const isSearchingGifs = action.payload as boolean;
       return {
         ...prideContext,
-        gifs: action.payload as GifType[]
+        isSearchingGifs,
       };
+    }
+    case SEARCH_GIFS_RESULT: {
+      const { gifs, next, loadMore } = action.payload as {
+        gifs: GifType[];
+        next: string;
+        loadMore?: boolean;
+      };
+      const newGifs = loadMore ? [...prideContext.gifs, ...gifs] : gifs;
 
+      return {
+        ...prideContext,
+        gifs: newGifs,
+        nextGif: next,
+        isSearchingGifs: false,
+      };
+    }
     case SORT_FLAGS: {
       const value = action.payload as string;
       let newFlags = [...flags];

@@ -30,15 +30,10 @@ const ToggleGifs = (props: Props) => {
   return (
     <div
       className={styles.toggleGifs}
-      onClick={toggle}
-      onFocus={() => setFocus(true)}
-      onBlur={() => setFocus(false)}
-      aria-label="Toggle Gifs"
-      tabIndex={0}
     >
       <Grid columns={5} spacing="1u">
         {gifs.map((gif, index) => (
-          <Gif key={index} gif={gif} />
+          <Gif key={index} gif={gif} allowClick={true} />
         ))}
       </Grid>
     </div>

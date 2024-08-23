@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { ChevronDownIcon, ChevronRightIcon, Title } from "@canva/app-ui-kit";
-import { SECTION_FLAG, SECTION_GIF } from "../../data";
+import { FLAGS, SECTION_FLAG, SECTION_GIF } from "../../data";
 import { TOGGLE_FLAG_SECTION, TOGGLE_GIF_SECTION } from "../../context/actions";
 import { PrideContext, PrideDispatchContext } from "../../context/prideContext";
 import useKeyPress from "../../hooks/useKeyPress";
@@ -20,15 +20,11 @@ const Header = (props: Props) => {
   const enterPressed = useKeyPress("Enter");
 
   const toggle = () => {
-    switch(type) {
+    switch (type) {
       case SECTION_FLAG:
         dispatch({ type: TOGGLE_FLAG_SECTION });
         break;
 
-      case SECTION_GIF:
-        dispatch({ type: TOGGLE_GIF_SECTION });
-        break;
-        
       default:
         break;
     }
@@ -50,7 +46,15 @@ const Header = (props: Props) => {
       tabIndex={0}
     >
       <Title>{title}</Title>
-      {visibleSections && visibleSections.includes(type) ? <ChevronDownIcon /> : <ChevronRightIcon />}
+      {type === SECTION_FLAG ? (
+        <>
+          {visibleSections && visibleSections.includes(type) ? (
+            <ChevronDownIcon />
+          ) : (
+            <ChevronRightIcon />
+          )}
+        </>
+      ) : null}
     </div>
   );
 };

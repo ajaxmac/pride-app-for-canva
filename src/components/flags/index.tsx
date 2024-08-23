@@ -7,16 +7,20 @@ import MiniFlags from "./miniFlags";
 import Flag from "../flag";
 import styles from "./flags.css";
 
+const title = "Pride Flags";
+
 const AddFlag = () => {
   const { flags, visibleSections } = useContext(PrideContext);
   const [variant, setVariant] = useState<"default" | "small">("default");
-  const title = "Pride Flags";
+  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (visibleSections && visibleSections.includes(SECTION_FLAG)) {
       setVariant("default");
+      setOpen(true);
     } else {
       setVariant("small");
+      setOpen(false);
     }
   }, [visibleSections]);
 
@@ -24,7 +28,7 @@ const AddFlag = () => {
     <div className={styles.container}>
       <Rows spacing="2u">
         <Header title={title} type={SECTION_FLAG} variant={variant} />
-        {visibleSections && visibleSections.includes(SECTION_FLAG) ? (
+        {open ? (
           <div className={styles.flags}>
             {!flags || flags.length === 0 ? (
               <Alert tone="info">No flags found</Alert>

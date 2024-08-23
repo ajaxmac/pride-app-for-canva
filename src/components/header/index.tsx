@@ -6,6 +6,7 @@ import ToggleHeader from "./toggleHeader";
 import ToggleSearch from "../search/toggle";
 import type { SectionType } from "../../types";
 import styles from "./header.css";
+import { SECTION_FLAG } from "../../data";
 
 type Props = {
   type: SectionType;
@@ -14,14 +15,14 @@ type Props = {
 };
 
 const Header = (props: Props) => {
-  const { variant = "default" } = props;
+  const { type, variant = "default" } = props;
   const [isSearching, setIsSearch] = useState<boolean>(false);
 
   const toggleSearch = () => {
     setIsSearch(!isSearching);
   };
 
-  return (
+  return type === SECTION_FLAG ? (
     <div className={styles.header}>
       {variant === "small" ? (
         <ToggleHeader {...props} />
@@ -41,6 +42,11 @@ const Header = (props: Props) => {
           </div>
         </>
       )}
+    </div>
+  ) : (
+    <div className={styles.headerGifs}>
+      <ToggleHeader {...props} />
+      <Search {...props} />
     </div>
   );
 };

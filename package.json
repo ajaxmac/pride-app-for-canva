@@ -1,6 +1,6 @@
 {
-  "name": "canva-apps-sdk-starter-kit",
-  "description": "A boilerplate for creating Canva Apps.",
+  "name": "pride-app-for-canva",
+  "description": "A Canva app that allows users to use LGBTIQ+ design elements",
   "engines": {
     "node": "^18 || ^20.10.0",
     "npm": "^9 || ^10"
@@ -32,8 +32,9 @@
     "@canva/platform": "^1.1.0",
     "@canva/preview": "./sdk/preview",
     "@canva/user": "^1.0.0",
-    "@giphy/js-fetch-api": "^5.6.0",
     "@giphy/react-components": "^9.6.0",
+    "dayjs": "^1.11.13",
+    "lodash": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { Alert, Grid, ImageCard, Rows } from "@canva/app-ui-kit";
+import { Alert, Grid, Rows } from "@canva/app-ui-kit";
 import { SECTION_GIF } from "../../data";
 import Header from "../header";
 import Gif from "../gif";
 import ToggleGifs from "./toggleGifs";
-import GIPHY_LOGO_WHITE from "../../assets/images/giphy-white.png";
+import LoadMoreGifs from "../load-more-gifs";
+import TenorLogo from "../tenor";
 import styles from "./gifs.css";
 import { PrideContext } from "src/context/prideContext";
 
@@ -32,20 +33,14 @@ const AddGif = () => {
         <div className={styles.gifs}>
           {!gifs || gifs.length === 0 ? (
             <Alert tone="info">No GIFs found</Alert>
-          ) : open ? (
-            <Grid columns={2} spacing="1u">
-              {gifs.map((gif, index) => (
-                <Gif key={index} gif={gif} />
-              ))}
-            </Grid>
           ) : (
             <ToggleGifs gifs={gifs} />
           )}
         </div>
       </Rows>
+      <LoadMoreGifs />
       <div className={styles.giphyLogo}>
-        <div />
-        <ImageCard thumbnailUrl={GIPHY_LOGO_WHITE} alt="Powered by Giphy" />
+        <TenorLogo />
       </div>
     </div>
   );

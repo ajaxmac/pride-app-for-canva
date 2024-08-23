@@ -1,8 +1,20 @@
 import type { FlagType, SectionType } from '../types';
-export const GIPHY_KEY = '8buVHJ7jFvJfd5qNRsgpt6xXq4o3LPZQ';
+export const TENOR_API_KEY= 'AIzaSyCKJ7OV30Cg40LlsYcwnoalf8ZsZlhlcvU';
+export const TENOR_SEARCH_API = 'https://tenor.googleapis.com/v2/search?';
 export const SECTION_FLAG: SectionType = 'flags';
 export const SECTION_GIF: SectionType = 'gifs';
 export const LGBT = 'LGBT';
+export const FETCH_OPTIONS: RequestInit = {
+  method: 'GET',
+  mode: 'cors',
+  cache: 'default',
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json'
+  },
+  redirect: 'error',
+  referrerPolicy: 'strict-origin-when-cross-origin'
+};
 
 export const FLAGS: FlagType[] = [
   {

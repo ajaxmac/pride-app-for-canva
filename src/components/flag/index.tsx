@@ -12,16 +12,14 @@ type Props = {
 
 const Flag = (props: Props) => {
   const { flag, variant = "default" } = props;
-  const { name, thumbnailUrl, yearCreated } = flag;
+  const { name, mimeType, thumbnailUrl, yearCreated, url } = flag;
   const [isLoading, setIsLoading] = useState(false);
   const type = "IMAGE";
 
   /**
    * upload flag
    */
-  const upLoadFlag = async (flag: FlagType) => {
-    const { url, thumbnailUrl, mimeType } = flag;
-
+  const upLoadFlag = async () => {
     return upload({
       type,
       mimeType,
@@ -33,10 +31,10 @@ const Flag = (props: Props) => {
   /**
    * Add a flag to the canvas
    */
-  const addFlag = async (flag: FlagType) => {
+  const addFlag = async () => {
     setIsLoading(true);
 
-    const result = await upLoadFlag(flag);
+    const result = await upLoadFlag();
     const { ref } = result;
 
     // Wait for the upload to complete
@@ -45,26 +43,26 @@ const Flag = (props: Props) => {
 
     // Add the image to the design
     await addNativeElement({
-      type: "IMAGE",
+      type,
       ref,
     });
   };
 
-  const onClick = (flag: FlagType) => {
-    addFlag(flag);
+  const onClick = () => {
+    addFlag();
   };
 
-  const handleDragStart = async (
-    event: React.DragEvent<HTMLElement>,
-    flag: FlagType
-  ) => {
+  /**
+   * drag onto canvas
+   */
+  const handleDragStart = async (event: React.DragEvent<HTMLElement>) => {
     const { thumbnailUrl } = flag;
     setIsLoading(true);
 
     await ui.startDrag(event, {
       type,
       resolveImageRef: () => {
-        return upLoadFlag(flag);
+        return upLoadFlag();
       },
       previewUrl: thumbnailUrl,
       previewSize: {
@@ -89,11 +87,9 @@ const Flag = (props: Props) => {
       <div className={styles.flagContainer}>
         <ImageCard
           thumbnailUrl={thumbnailUrl}
-          onClick={() => onClick(flag)}
+          onClick={onClick}
           alt={name}
-          onDragStart={(e: React.DragEvent<HTMLElement>) =>
-            handleDragStart(e, flag)
-          }
+          onDragStart={handleDragStart}
           loading={isLoading}
         />
       </div>

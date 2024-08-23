@@ -2,12 +2,13 @@
 import React, { createContext, useReducer } from "react";
 import { prideReducer } from "./prideReducer";
 import type { ActionType, PrideContextType } from "../types";
-import { LGBT } from "../data";
 
 export const defaultPrideContext: PrideContextType = {
   flags: [],
   searchFlagsTerm: "",
-  searchGifsTerm: LGBT,
+  searchGifsTerm: '',
+  nextGif: '',
+  isSearchingGifs: false,
   searchResults: [],
   visibleSections: [],
   gifs: [],
