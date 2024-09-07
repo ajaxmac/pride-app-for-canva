@@ -6,7 +6,7 @@ import ToggleHeader from "./toggleHeader";
 import ToggleSearch from "../search/toggle";
 import type { SectionType } from "../../types";
 import styles from "./header.css";
-import { SECTION_FLAG } from "../../data";
+import { SECTION_FLAG, SECTION_GIF } from "../../data";
 
 type Props = {
   type: SectionType;
@@ -22,18 +22,20 @@ const Header = (props: Props) => {
     setIsSearch(!isSearching);
   };
 
-  return type === SECTION_FLAG ? (
-    <div className={styles.header}>
-      {variant === "small" ? (
-        <ToggleHeader {...props} />
-      ) : isSearching ? (
+  switch (true) {
+    case (type === SECTION_FLAG) && (variant === "small"):
+      return <ToggleHeader {...props} />;
+    case isSearching && type === SECTION_FLAG:
+      return (
         <>
           <Search {...props} />
           <Button variant="primary" onClick={toggleSearch}>
             Done
           </Button>
         </>
-      ) : (
+      );
+    case type === SECTION_FLAG:
+      return (
         <>
           <ToggleHeader {...props} />
           <div className={styles.headerButtons}>
@@ -41,14 +43,24 @@ const Header = (props: Props) => {
             <ToggleSearch toggleSearch={toggleSearch} />
           </div>
         </>
-      )}
-    </div>
-  ) : (
-    <div className={styles.headerGifs}>
-      <ToggleHeader {...props} />
-      <Search {...props} />
-    </div>
-  );
+      );
+    case type === SECTION_GIF && (variant === "small"):
+      return (
+        <div className={styles.headerGifs}>
+          <ToggleHeader {...props} />
+        </div>
+      );
+
+    case type === SECTION_GIF:
+      return (
+        <div className={styles.headerGifs}>
+          <ToggleHeader {...props} />
+          <Search {...props} />
+        </div>
+      );
+    default:
+      return null;
+  }
 };
 
 export default Header;

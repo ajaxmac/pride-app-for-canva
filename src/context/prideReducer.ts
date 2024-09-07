@@ -153,7 +153,7 @@ export function prideReducer(
       if (!visibleSections) {
         return {
           ...prideContext,
-          visibleSections: [SECTION_FLAG],
+          visibleSections: [],
         };
       }
 

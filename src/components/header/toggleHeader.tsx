@@ -25,6 +25,10 @@ const Header = (props: Props) => {
         dispatch({ type: TOGGLE_FLAG_SECTION });
         break;
 
+      case SECTION_GIF:
+        dispatch({ type: TOGGLE_GIF_SECTION });
+        break;
+
       default:
         break;
     }
@@ -46,15 +50,11 @@ const Header = (props: Props) => {
       tabIndex={0}
     >
       <Title>{title}</Title>
-      {type === SECTION_FLAG ? (
-        <>
-          {visibleSections && visibleSections.includes(type) ? (
-            <ChevronDownIcon />
-          ) : (
-            <ChevronRightIcon />
-          )}
-        </>
-      ) : null}
+      {visibleSections && visibleSections.includes(type) ? (
+        <ChevronDownIcon />
+      ) : (
+        <ChevronRightIcon />
+      )}
     </div>
   );
 };

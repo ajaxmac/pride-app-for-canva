@@ -14,6 +14,8 @@ const LoadMoreGifs = () => {
     dispatch({ type: SEARCH_GIFS_LOADING, payload: true });
     fetchGifs(nextGif).then((result) => {
       dispatch({ type: SEARCH_GIFS_RESULT, payload: {...result, loadMore: true} });
+    }).catch((err) => {
+      dispatch({ type: SEARCH_GIFS_LOADING, payload: false });
     });
   };
 

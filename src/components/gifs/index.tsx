@@ -1,19 +1,17 @@
 import { useContext, useEffect, useState } from "react";
-import { Alert, Grid, Rows } from "@canva/app-ui-kit";
+import { Rows } from "@canva/app-ui-kit";
 import { SECTION_GIF } from "../../data";
 import Header from "../header";
-import Gif from "../gif";
 import ToggleGifs from "./toggleGifs";
+import ListGifs from "./listGifs";
 import LoadMoreGifs from "../load-more-gifs";
 import TenorLogo from "../tenor";
-import styles from "./gifs.css";
 import { PrideContext } from "src/context/prideContext";
-
-const title = "GIFs";
+import styles from "./gifs.css";
 
 const AddGif = () => {
-  const { gifs, visibleSections } = useContext(PrideContext);
-  const [variant, setVariant] = useState<"default" | "small">("default");
+  const { visibleSections } = useContext(PrideContext);
+  const [variant, setVariant] = useState<"default" | "small">("small");
   const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -27,21 +25,19 @@ const AddGif = () => {
   }, [visibleSections]);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.gifsContainer}>
       <Rows spacing="2u">
-        <Header title={title} type={SECTION_GIF} variant={variant} />
-        <div className={styles.gifs}>
-          {!gifs || gifs.length === 0 ? (
-            <Alert tone="info">No GIFs found</Alert>
-          ) : (
-            <ToggleGifs gifs={gifs} />
-          )}
-        </div>
+        <Header title="GIFs" type={SECTION_GIF} variant={variant} />
+        {open ? (
+          <div className={styles.gifsOpen}>
+            <ListGifs />
+            <LoadMoreGifs />
+            <TenorLogo />
+          </div>
+        ) : (
+          <ToggleGifs />
+        )}
       </Rows>
-      <LoadMoreGifs />
-      <div className={styles.giphyLogo}>
-        <TenorLogo />
-      </div>
     </div>
   );
 };

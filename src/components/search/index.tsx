@@ -8,15 +8,15 @@ import type { SectionType } from "../../types";
 import { SECTION_FLAG, SECTION_GIF } from "../../data";
 import { SEARCH_FLAGS, SEARCH_GIFS, SEARCH_GIFS_RESULT } from "../../context/actions";
 import { fetchGifs } from "../../lib";
-import debounce from "lodash/debounce";
 import styles from "./search.css";
 
 type Props = {
+  title: string,
   type: SectionType;
 };
 
 const Search = (props: Props) => {
-  const { type } = props;
+  const { title, type } = props;
   const { searchFlagsTerm, searchGifsTerm, isSearchingGifs } = useContext(PrideContext);
   const { dispatch } = useContext(PrideDispatchContext);
   const [search, setSearch] = useState<string>(
@@ -27,24 +27,7 @@ const Search = (props: Props) => {
     setSearch(type === SECTION_FLAG ? searchFlagsTerm : searchGifsTerm);
   }, [searchFlagsTerm, searchGifsTerm]);
 
-  /**
-   * Clear search
-   */
-  const clearSearch = () => {
-    switch (type) {
-      case SECTION_FLAG:
-        dispatch({ type: SEARCH_FLAGS, payload: "" });
-        break;
-      case SECTION_GIF:
-        dispatch({ type: SEARCH_GIFS, payload: "" });
-        break;
-      default:
-        break;
-    }
-  };
-
   const searchTenor = async () => {
-    console.warn("searchTenor", search);
     const result = await fetchGifs(search);
     dispatch({ type: SEARCH_GIFS_RESULT, payload: result });
   };
@@ -70,10 +53,10 @@ const Search = (props: Props) => {
   return (
     <div className={styles.search}>
       <TextInput
-        placeholder="Search Flags"
+        placeholder={`Search ${title}`}
         type="search"
         start={isSearchingGifs ? <LoadingIndicator /> : <SearchIcon />}
-        end={<ClearSearch clearSearch={clearSearch} />}
+        end={<ClearSearch {...props} />}
         onChange={handleSearch}
         value={search}
       />
