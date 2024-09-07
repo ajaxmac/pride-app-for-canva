@@ -1,13 +1,12 @@
-/* eslint-disable no-console */
 import { useContext, useEffect, useState } from "react";
 import { ClearIcon } from "@canva/app-ui-kit";
 import useKeyPress from "../../hooks/useKeyPress";
 import { PrideContext, PrideDispatchContext } from "../../context/prideContext";
 import { SECTION_FLAG, SECTION_GIF } from "../../data";
-import { SEARCH_FLAGS, SEARCH_GIFS, SEARCH_GIFS_RESULT } from "../../context/actions";
+import { SEARCH_FLAGS, SEARCH_GIFS, SEARCH_GIFS_LOADING, SEARCH_GIFS_RESULT } from "../../context/actions";
+import { fetchGifs } from "src/lib";
 import type { SectionType } from "../../types";
 import styles from "./search.css";
-import { fetchGifs } from "src/lib";
 
 type Props = {
   title: string;
@@ -15,8 +14,8 @@ type Props = {
 };
 
 const ClearSearch = (props: Props) => {
-  const { title, type } = props;
-  const { searchFlagsTerm, searchGifsTerm, isSearchingGifs } = useContext(PrideContext);
+  const { type } = props;
+  const { searchFlagsTerm, searchGifsTerm } = useContext(PrideContext);
   const { dispatch } = useContext(PrideDispatchContext);
   const [focus, setFocus] = useState<boolean>(false);
   const [search, setSearch] = useState<string>(
@@ -33,6 +32,7 @@ const ClearSearch = (props: Props) => {
   const searchTenor = async () => {
     const result = await fetchGifs('');
     dispatch({ type: SEARCH_GIFS_RESULT, payload: result });
+    dispatch({ type: SEARCH_GIFS_LOADING, payload: false });
   };
 
   /**

@@ -48,10 +48,6 @@ const Flag = (props: Props) => {
     });
   };
 
-  const onClick = () => {
-    addFlag();
-  };
-
   /**
    * drag onto canvas
    */
@@ -87,7 +83,7 @@ const Flag = (props: Props) => {
       <div className={styles.flagContainer}>
         <ImageCard
           thumbnailUrl={thumbnailUrl}
-          onClick={onClick}
+          onClick={addFlag}
           alt={name}
           onDragStart={handleDragStart}
           loading={isLoading}

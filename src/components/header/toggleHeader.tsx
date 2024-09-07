@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { ChevronDownIcon, ChevronRightIcon, Title } from "@canva/app-ui-kit";
-import { FLAGS, SECTION_FLAG, SECTION_GIF } from "../../data";
+import { SECTION_FLAG, SECTION_GIF } from "../../data";
 import { TOGGLE_FLAG_SECTION, TOGGLE_GIF_SECTION } from "../../context/actions";
 import { PrideContext, PrideDispatchContext } from "../../context/prideContext";
 import useKeyPress from "../../hooks/useKeyPress";

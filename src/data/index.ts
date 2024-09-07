@@ -106,5 +106,14 @@ export const FLAGS: FlagType[] = [
     thumbnailUrl:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Transgender_Pride_flag.svg/320px-Transgender_Pride_flag.svg.png",
     yearCreated: "1999"
-  }  
+  },
+  {
+    name: "Intersex",
+    slug: 'intersex-pride-flag',
+    mimeType: "image/svg+xml",
+    url: "https://upload.wikimedia.org/wikipedia/commons/3/38/Intersex_Pride_Flag.svg",
+    thumbnailUrl:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Intersex_Pride_Flag.svg/320px-Intersex_Pride_Flag.svg.png",
+    yearCreated: "2013"
+  }
 ];

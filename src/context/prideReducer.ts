@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import type {
   ActionType,
   FlagType,
@@ -49,6 +48,7 @@ export function prideReducer(
       return {
         ...prideContext,
         searchGifsTerm: term,
+        isSearchingGifs: true,
       };
     }
     case SET_SEARCH_RESULTS:

@@ -3,23 +3,23 @@ import dayjs from "dayjs";
 import { FETCH_OPTIONS, LGBT, TENOR_API_KEY, TENOR_SEARCH_API } from "../data";
 import type { TenorGifType } from "../types";
 
-export const fetchGifs = async (search = '', nextGif ='') => {
+export const fetchGifs = async (search = '', nextGif = '') => {
   const q = search === '' ? LGBT : `${search} ${LGBT}`;
   const random = search === '' ? true : false;
   const params = new URLSearchParams();
-  params.append("key", TENOR_API_KEY);
   params.append("q", q);
   params.append("random", random.toString());
   params.append("locale", window.navigator.language);
   params.append("contentfilter", "low"); // G, PG, and PG-13
-  params.append("media_filter", "gif,tinygif"); // minimal, basic, standard
+  params.append("media_filter", "minimal"); 
   params.append("limit", "20");
+  params.append("key", TENOR_API_KEY);
 
   if (nextGif) {
     params.append("pos", nextGif);
   }
 
-  const url = `${TENOR_SEARCH_API}${params}`;
+  const url = `${TENOR_SEARCH_API}${params.toString()}`;
 
   const { next, results } = await fetch(url, FETCH_OPTIONS)
     .then((response) => response.json())
