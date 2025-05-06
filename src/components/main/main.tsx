@@ -6,7 +6,7 @@ import "styles/variables.css";
 import styles from "styles/components.css";
 
 export const Main = () => {
-  useInitPride() 
+  useInitPride();
 
   return (
     <div className={styles.scrollContainer}>

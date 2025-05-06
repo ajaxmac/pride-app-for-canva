@@ -46,9 +46,12 @@ const MiniFlags = (props: Props) => {
         tabIndex={0}
         onClick={toggle}
       >
-        {flags && flags.slice(0, 5).map((flag) => (
-          <Flag key={flag.slug} flag={flag} variant="small" />
-        ))}
+        {flags &&
+          flags
+            .slice(0, 5)
+            .map((flag) => (
+              <Flag key={flag.slug} flag={flag} variant="small" />
+            ))}
         <MoreHorizontalIcon />
       </div>
     </div>

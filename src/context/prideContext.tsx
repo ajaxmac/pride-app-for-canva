@@ -6,8 +6,8 @@ import type { ActionType, PrideContextType } from "../types";
 export const defaultPrideContext: PrideContextType = {
   flags: [],
   searchFlagsTerm: "",
-  searchGifsTerm: '',
-  nextGif: '',
+  searchGifsTerm: "",
+  nextGif: "",
   isSearchingGifs: false,
   searchResults: [],
   visibleSections: [],
@@ -28,7 +28,10 @@ type ProviderProps = {
 };
 
 export default function PrideProvider({ children }: ProviderProps) {
-  const [prideContext, dispatch] = useReducer(prideReducer, defaultPrideContext);
+  const [prideContext, dispatch] = useReducer(
+    prideReducer,
+    defaultPrideContext
+  );
 
   return (
     <PrideContext.Provider value={prideContext}>

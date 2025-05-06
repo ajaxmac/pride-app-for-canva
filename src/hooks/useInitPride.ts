@@ -10,7 +10,7 @@ export default function useInitPride() {
   const initialGifSearch = async () => {
     const gifs = await fetchGifs();
     dispatch({ type: SEARCH_GIFS_RESULT, payload: gifs });
-  }
+  };
 
   useEffect(() => {
     dispatch({ type: INIT_PRIDE });

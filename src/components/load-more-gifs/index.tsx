@@ -1,10 +1,9 @@
-
-import { Button, LoadingIndicator } from '@canva/app-ui-kit';
-import { useContext } from 'react';
-import { PrideContext, PrideDispatchContext } from '../../context/prideContext';
-import { SEARCH_GIFS_LOADING, SEARCH_GIFS_RESULT } from '../../context/actions';
-import { fetchGifs } from 'src/lib';
-import styles from './loadMoreGifs.css';
+import { Button, LoadingIndicator } from "@canva/app-ui-kit";
+import { useContext } from "react";
+import { PrideContext, PrideDispatchContext } from "../../context/prideContext";
+import { SEARCH_GIFS_LOADING, SEARCH_GIFS_RESULT } from "../../context/actions";
+import { fetchGifs } from "src/lib";
+import styles from "./loadMoreGifs.css";
 
 const LoadMoreGifs = () => {
   const { isSearchingGifs, gifs, nextGif } = useContext(PrideContext);
@@ -12,11 +11,16 @@ const LoadMoreGifs = () => {
 
   const loadMoreGifs = () => {
     dispatch({ type: SEARCH_GIFS_LOADING, payload: true });
-    fetchGifs(nextGif).then((result) => {
-      dispatch({ type: SEARCH_GIFS_RESULT, payload: {...result, loadMore: true} });
-    }).catch((err) => {
-      dispatch({ type: SEARCH_GIFS_LOADING, payload: [] });
-    });
+    fetchGifs(nextGif)
+      .then((result) => {
+        dispatch({
+          type: SEARCH_GIFS_RESULT,
+          payload: { ...result, loadMore: true },
+        });
+      })
+      .catch((err) => {
+        dispatch({ type: SEARCH_GIFS_LOADING, payload: [] });
+      });
   };
 
   return !gifs.length ? null : (
@@ -33,4 +37,3 @@ const LoadMoreGifs = () => {
 };
 
 export default LoadMoreGifs;
-

@@ -28,7 +28,7 @@ const Filter = (props: Props) => {
   };
 
   const OPTIONS = [
-    {value: 'default', label: 'Default'},
+    { value: "default", label: "Default" },
     { value: "alphaAsc", label: "A - Z" },
     { value: "alphaDesc", label: "Z - A" },
     { value: "dateAsc", label: "Date ASC" },

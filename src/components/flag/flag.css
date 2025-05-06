@@ -8,7 +8,7 @@
 }
 
 .flag img {
-  transition: all 0.3s ease-in-out; 
+  transition: all 0.3s ease-in-out;
 }
 
 .flag:hover img {
@@ -18,11 +18,11 @@
 .flagSmall {
   width: 25%;
   border: 1px solid #909090;
-  transition: all 0.3s ease-in-out; 
+  transition: all 0.3s ease-in-out;
 }
 
 .flagSmall:hover {
-  width: 35%
+  width: 35%;
 }
 
 .flagContainer {

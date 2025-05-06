@@ -3,7 +3,12 @@ import { ClearIcon } from "@canva/app-ui-kit";
 import useKeyPress from "../../hooks/useKeyPress";
 import { PrideContext, PrideDispatchContext } from "../../context/prideContext";
 import { SECTION_FLAG, SECTION_GIF } from "../../data";
-import { SEARCH_FLAGS, SEARCH_GIFS, SEARCH_GIFS_LOADING, SEARCH_GIFS_RESULT } from "../../context/actions";
+import {
+  SEARCH_FLAGS,
+  SEARCH_GIFS,
+  SEARCH_GIFS_LOADING,
+  SEARCH_GIFS_RESULT,
+} from "../../context/actions";
 import { fetchGifs } from "src/lib";
 import type { SectionType } from "../../types";
 import styles from "./search.css";
@@ -25,12 +30,12 @@ const ClearSearch = (props: Props) => {
   useEffect(() => {
     setSearch(type === SECTION_FLAG ? searchFlagsTerm : searchGifsTerm);
   }, [searchFlagsTerm, searchGifsTerm]);
-  
+
   const enterPressed = useKeyPress("Enter");
   const escPressed = useKeyPress("Escape");
 
   const searchTenor = async () => {
-    const result = await fetchGifs('');
+    const result = await fetchGifs("");
     dispatch({ type: SEARCH_GIFS_RESULT, payload: result });
     dispatch({ type: SEARCH_GIFS_LOADING, payload: false });
   };
@@ -58,7 +63,7 @@ const ClearSearch = (props: Props) => {
     }
   }, [escPressed, enterPressed, focus]);
 
-  return search === '' ? null : (
+  return search === "" ? null : (
     <div
       className={styles.clearIcon}
       onClick={clearSearch}

@@ -23,7 +23,7 @@ const Header = (props: Props) => {
   };
 
   switch (true) {
-    case (type === SECTION_FLAG) && (variant === "small"):
+    case type === SECTION_FLAG && variant === "small":
       return <ToggleHeader {...props} />;
     case isSearching && type === SECTION_FLAG:
       return (
@@ -44,7 +44,7 @@ const Header = (props: Props) => {
           </div>
         </>
       );
-    case type === SECTION_GIF && (variant === "small"):
+    case type === SECTION_GIF && variant === "small":
       return (
         <div className={styles.headerGifs}>
           <ToggleHeader {...props} />

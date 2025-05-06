@@ -5,18 +5,23 @@ import { LoadingIndicator, SearchIcon } from "@canva/app-ui-kit";
 import { PrideContext, PrideDispatchContext } from "../../context/prideContext";
 import type { SectionType } from "../../types";
 import { SECTION_FLAG, SECTION_GIF } from "../../data";
-import { SEARCH_FLAGS, SEARCH_GIFS, SEARCH_GIFS_RESULT } from "../../context/actions";
+import {
+  SEARCH_FLAGS,
+  SEARCH_GIFS,
+  SEARCH_GIFS_RESULT,
+} from "../../context/actions";
 import { fetchGifs } from "../../lib";
 import styles from "./search.css";
 
 type Props = {
-  title: string,
+  title: string;
   type: SectionType;
 };
 
 const Search = (props: Props) => {
   const { title, type } = props;
-  const { searchFlagsTerm, searchGifsTerm, isSearchingGifs } = useContext(PrideContext);
+  const { searchFlagsTerm, searchGifsTerm, isSearchingGifs } =
+    useContext(PrideContext);
   const { dispatch } = useContext(PrideDispatchContext);
   const [search, setSearch] = useState<string>();
 
@@ -34,7 +39,6 @@ const Search = (props: Props) => {
    * Handle Search
    */
   const handleSearch = async (value: string) => {
-
     switch (type) {
       case SECTION_FLAG:
         dispatch({ type: SEARCH_FLAGS, payload: value });

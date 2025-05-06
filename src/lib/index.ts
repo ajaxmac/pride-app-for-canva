@@ -3,15 +3,15 @@ import dayjs from "dayjs";
 import { FETCH_OPTIONS, LGBT, TENOR_API_KEY, TENOR_SEARCH_API } from "../data";
 import type { TenorGifType } from "../types";
 
-export const fetchGifs = async (search = '', nextGif = '') => {
-  const q = search === '' ? LGBT : `${search} ${LGBT}`;
-  const random = search === '' ? true : false;
+export const fetchGifs = async (search = "", nextGif = "") => {
+  const q = search === "" ? LGBT : `${search} ${LGBT}`;
+  const random = search === "" ? true : false;
   const params = new URLSearchParams();
   params.append("q", q);
   params.append("random", random.toString());
   params.append("locale", window.navigator.language);
   params.append("contentfilter", "low"); // G, PG, and PG-13
-  params.append("media_filter", "minimal"); 
+  params.append("media_filter", "minimal");
   params.append("limit", "20");
   params.append("key", TENOR_API_KEY);
 
@@ -29,7 +29,8 @@ export const fetchGifs = async (search = '', nextGif = '') => {
     });
 
   const gifs = results.map((gif: TenorGifType) => {
-    const { title, created, content_description, url, tags, media_formats } = gif;
+    const { title, created, content_description, url, tags, media_formats } =
+      gif;
     return {
       name: title,
       yearCreated: dayjs.unix(created).format("YYYY"),
@@ -37,7 +38,7 @@ export const fetchGifs = async (search = '', nextGif = '') => {
       mimeType: gif.type,
       url,
       tags,
-      thumbnailUrl: media_formats.tinygif?.url
+      thumbnailUrl: media_formats.tinygif?.url,
     };
   });
 
